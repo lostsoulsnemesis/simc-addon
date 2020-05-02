@@ -750,3 +750,14 @@ function Simulationcraft:PrintSimcProfile(debugOutput, noBags, links)
     SimcCopyFrame:Hide()
   end)
 end
+
+SimulationcraftTooltip.eventhandler = CreateFrame("Frame")
+SimulationcraftTooltip.eventhandler:RegisterEvent("CHAT_MSG_ADDON")
+SimulationcraftTooltip.eventhandler:SetScript("OnEvent", function(self, event, prefix, text, channel, sender, ...)
+  local name = UnitName("player")
+  local realm = GetRealmName()
+  if prefix=="toSimc" and sender==name.."-"..realm then
+    --print("SimulationCraft - Got "..text)
+    Simulationcraft:HandleChatCommand(text)
+  end
+end)
